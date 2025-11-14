@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Nitya | November 21</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 16px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            padding: 32px 16px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header .date {
+            font-size: 1.1rem;
+            color: #fbbf24;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            animation: slideUp 0.6s ease;
+        }
+
+        .card h2 {
+            font-size: 1.4rem;
+            color: #667eea;
+            margin-bottom: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        /* Memory Section */
+        .memory-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .memory-item .icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .memory-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .memory-item p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.95);
+            line-height: 1.5;
+        }
+
+        /* Video Section */
+        .video-display {
+            background: #000;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        #videoFrame {
+            width: 100%;
+            height: 220px;
+            border: none;
+        }
+
+        .video-info {
+            background: #f9fafb;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+        }
+
+        /* Chat Section */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 480px;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f3f4f6;
+        }
+
+        .chat-title {
+            font-size: 0.9rem;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .disappear-btn {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .disappear-btn:active {
+            transform: scale(0.98);
+        }
+
+        .chat-messages {
+            flex: 1;
+            background: #f9fafb;
+            border-radius: 16px;
+            padding: 16px;
+            overflow-y: auto;
+            margin-bottom: 12px;
+        }
+
+        .chat-empty {
+            text-align: center;
+            padding: 48px 20px;
+            color: #999;
+        }
+
+        .chat-empty .icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            opacity: 0.4;
+        }
+
+        .chat-empty h3 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+            color: #666;
+        }
+
+        .chat-empty p {
+            font-size: 0.85rem;
+        }
+
+        .chat-message {
+            background: white;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            animation: messageSlide 0.3s ease;
+        }
+
+        .chat-message.sent {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-left: none;
+            margin-left: 20px;
+        }
+
+        .chat-message.received {
+            border-left: 3px solid #667eea;
+            margin-right: 20px;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+        }
+
+        .message-sender {
+            font-weight: 500;
+        }
+
+        .chat-message.sent .message-sender {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .chat-message.received .message-sender {
+            color: #667eea;
+        }
+
+        .message-time {
+            opacity: 0.7;
+        }
+
+        .message-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .chat-message.sent .message-text {
+            color: white;
+        }
+
+        .chat-message.received .message-text {
+            color: #333;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 14px 16px;
+            font-size: 0.95rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: #667eea;
+        }
+
+        .btn-send {
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-send:active {
+            transform: scale(0.98);
+        }
+
+        /* Wishes Section */
+        .wishes-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 32px 24px;
+        }
+
+        .wishes-card h2 {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .wishes-card p {
+            color: rgba(255,255,255,0.95);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .signature {
+            margin-top: 24px;
+            font-style: italic;
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Scrollbar */
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Happy Birthday, Nitya</h1>
+            <div class="date">November 21st 🎂</div>
+        </div>
+
+        <div class="card">
+            <h2>✨ Beautiful Memories</h2>
+            <div class="memory-item">
+                <div class="icon">💫</div>
+                <h3>Cherished Moments</h3>
+                <p>Every conversation, every laugh, every moment we shared together</p>
+            </div>
+            <div class="memory-item">
+                <div class="icon">🌟</div>
+                <h3>Special Times</h3>
+                <p>The memories that made ordinary days feel extraordinary</p>
+            </div>
+            <div class="memory-item">
+                <div class="icon">💝</div>
+                <h3>Grateful Heart</h3>
+                <p>Thank you for all the beautiful memories we created</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🎥 Special Video for You</h2>
+            <div class="video-display">
+                <iframe id="videoFrame" 
+                        src="https://www.youtube.com/embed/HDxKtpPo0Pg" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+            <div class="video-info">
+                🎬 A special message just for you
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>💬 Chat with Me</h2>
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="chat-title" id="chatStatus">Loading...</div>
+                    <button onclick="requestDisappear()" class="disappear-btn" id="disappearBtn">
+                        ⏱️ Disappear (2h)
+                    </button>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-empty">
+                        <div class="icon">💭</div>
+                        <h3>Start Chatting</h3>
+                        <p>Send a message to begin</p>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" 
+                           id="chatInput" 
+                           class="chat-input" 
+                           placeholder="Type a message...">
+                    <button onclick="sendMessage()" class="btn-send">
+                        Send
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card wishes-card">
+            <h2>🎉 Birthday Wishes</h2>
+            <p>On this special day, I wish you all the happiness in the world.</p>
+            <p>May your path be filled with success, joy, and beautiful new beginnings.</p>
+            <p>Thank you for the memories we created together.</p>
+            <p>You deserve all the wonderful things life has to offer.</p>
+            <p>Happy Birthday, Nitya! 🎊</p>
+            <div class="signature">With warm wishes 💝</div>
+        </div>
+    </div>
+
+    <script>
+        let userIP = 'Loading...';
+        let myUserKey = null;
+
+        // Get user's IP address
+        async function getUserIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                userIP = data.ip;
+                
+                // Create unique user key based on IP
+                myUserKey = 'user_' + userIP.replace(/\./g, '_');
+                
+                // Update status
+                document.getElementById('chatStatus').textContent = 'Connected';
+                
+                return userIP;
+            } catch (error) {
+                console.error('Error fetching IP:', error);
+                userIP = 'user_' + Math.random().toString(36).substr(2, 9);
+                myUserKey = userIP;
+                document.getElementById('chatStatus').textContent = 'Connected';
+                return userIP;
+            }
+        }
+
+        // Load messages
+        async function loadMessages() {
+            try {
+                const result = await window.storage.get('chat-messages', true);
+                if (result && result.value) {
+                    const allMessages = JSON.parse(result.value);
+                    
+                    // Filter messages - show all except those marked for disappear by this user
+                    const myDisappearResult = await window.storage.get('disappear_' + myUserKey, false);
+                    let shouldDisappear = false;
+                    let disappearTime = null;
+                    
+                    if (myDisappearResult && myDisappearResult.value) {
+                        const disappearData = JSON.parse(myDisappearResult.value);
+                        disappearTime = disappearData.timestamp;
+                        const now = new Date().getTime();
+                        const twoHours = 2 * 60 * 60 * 1000;
+                        
+                        if (now - disappearTime < twoHours) {
+                            shouldDisappear = true;
+                        } else {
+                            // Clean up expired disappear request
+                            await window.storage.delete('disappear_' + myUserKey, false);
+                        }
+                    }
+                    
+                    if (shouldDisappear) {
+                        // Show empty state for this user
+                        displayMessages([]);
+                    } else {
+                        displayMessages(allMessages);
+                    }
+                }
+            } catch (error) {
+                console.log('No messages found');
+            }
+        }
+
+        // Save messages
+        async function saveMessages(messages) {
+            try {
+                await window.storage.set('chat-messages', JSON.stringify(messages), true);
+            } catch (error) {
+                console.error('Error saving messages:', error);
+            }
+        }
+
+        // Display messages
+        function displayMessages(messages) {
+            const chatMessages = document.getElementById('chatMessages');
+            
+            if (messages.length === 0) {
+                chatMessages.innerHTML = `
+                    <div class="chat-empty">
+                        <div class="icon">💭</div>
+                        <h3>Start Chatting</h3>
+                        <p>Send a message to begin</p>
+                    </div>
+                `;
+                return;
+            }
+
+            chatMessages.innerHTML = '';
+            messages.forEach(msg => {
+                const messageDiv = document.createElement('div');
+                const isSent = msg.sender === myUserKey;
+                messageDiv.className = `chat-message ${isSent ? 'sent' : 'received'}`;
+                
+                const displayName = isSent ? 'You' : 'Nitya';
+                
+                messageDiv.innerHTML = `
+                    <div class="message-header">
+                        <span class="message-sender">${displayName}</span>
+                        <span class="message-time">${msg.timestamp}</span>
+                    </div>
+                    <div class="message-text">${escapeHtml(msg.text)}</div>
+                `;
+                chatMessages.appendChild(messageDiv);
+            });
+
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Send message
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const messageText = input.value.trim();
+            
+            if (!messageText) return;
+
+            const timestamp = new Date().toLocaleString();
+            
+            let messages = [];
+            try {
+                const result = await window.storage.get('chat-messages', true);
+                if (result && result.value) {
+                    messages = JSON.parse(result.value);
+                }
+            } catch (error) {
+                messages = [];
+            }
+
+            const newMessage = {
+                text: messageText,
+                sender: myUserKey,
+                timestamp: timestamp
+            };
+
+            messages.push(newMessage);
+
+            // Display message immediately
+            displayMessages(messages);
+            input.value = '';
+
+            // Save to storage
+            try {
+                await window.storage.set('chat-messages', JSON.stringify(messages), true);
+            } catch (error) {
+                console.error('Error saving message:', error);
+            }
+        }
+
+        // Request disappear messages
+        async function requestDisappear() {
+            if (confirm('Hide all messages for 2 hours? (Only for you - others can still see them)')) {
+                try {
+                    const disappearData = {
+                        timestamp: new Date().getTime()
+                    };
+                    
+                    await window.storage.set('disappear_' + myUserKey, JSON.stringify(disappearData), false);
+                    
+                    // Clear display immediately
+                    displayMessages([]);
+                    
+                    alert('Messages hidden for 2 hours. They will reappear automatically.');
+                } catch (error) {
+                    console.error('Error setting disappear:', error);
+                    alert('Error hiding messages. Please try again.');
+                }
+            }
+        }
+
+        // Event Listeners
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Auto-refresh
+        setInterval(loadMessages, 2000);
+
+        // Initialize
+        getUserIP().then(() => {
+            loadMessages();
+        });
+    </script>
+</body>
+</html>
